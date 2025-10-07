@@ -34,13 +34,13 @@
       z-index: 9999;
       font-family: sans-serif;
       color: white;
-      font-size: 24px;
+      font-size: 48px;
     }
   </style>
 </head>
 
 <body>
-  <div id="loading-cover">Czekaj: 0%</div>
+  <div id="loading-cover">Ładowanie: 0%</div>
   <canvas id="unity-canvas" tabindex="-1"></canvas>
   <script src="Build/docs.loader.js"></script>
   <script>
@@ -61,11 +61,11 @@
       devicePixelRatio: pixelRatio
     }, (progress) => {
       const percent = Math.round(progress * 100);
-      loadingCover.innerText = `Загрузка: ${percent}%`;
+      loadingCover.innerText = `Ładowanie: ${percent}%`;
     }).then((unityInstance) => {
       loadingCover.style.display = "none";
     }).catch((message) => {
-      loadingCover.innerText = "Ошибка загрузки: " + message;
+      loadingCover.innerText = "Błąd ładowania. Spróbuj odświeżyć stronę: " + message;
     });
   </script>
 </body>
