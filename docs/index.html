@@ -16,21 +16,38 @@
 
     #unity-canvas {
       height: 75vh;
-      /* фиксируем высоту */
       width: calc(75vh * 9 / 16);
-      /* ширина из портретного 16:9 */
       background: #231F20;
       display: block;
+    }
+
+    #loading-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      font-family: sans-serif;
+      color: white;
+      font-size: 24px;
     }
   </style>
 </head>
 
 <body>
+  <div id="loading-cover">Czekaj: 0%</div>
   <canvas id="unity-canvas" tabindex="-1"></canvas>
   <script src="Build/docs.loader.js"></script>
   <script>
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const pixelRatio = isMobile ? 1 : window.devicePixelRatio || 1;
+
+    const loadingCover = document.getElementById("loading-cover");
 
     createUnityInstance(document.querySelector("#unity-canvas"), {
       dataUrl: "Build/docs.data",
@@ -42,6 +59,13 @@
       productVersion: "0.1.0",
       matchWebGLToCanvasSize: true,
       devicePixelRatio: pixelRatio
+    }, (progress) => {
+      const percent = Math.round(progress * 100);
+      loadingCover.innerText = `Загрузка: ${percent}%`;
+    }).then((unityInstance) => {
+      loadingCover.style.display = "none";
+    }).catch((message) => {
+      loadingCover.innerText = "Ошибка загрузки: " + message;
     });
   </script>
 </body>
