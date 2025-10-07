@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Unity Web Player | MVPPlatformer3D</title>
+  <title>Construction Game</title>
   <style>
     body {
       margin: 0;
@@ -29,6 +29,9 @@
   <canvas id="unity-canvas" tabindex="-1"></canvas>
   <script src="Build/docs.loader.js"></script>
   <script>
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const pixelRatio = isMobile ? 1 : window.devicePixelRatio || 1;
+
     createUnityInstance(document.querySelector("#unity-canvas"), {
       dataUrl: "Build/docs.data",
       frameworkUrl: "Build/docs.framework.js",
@@ -37,7 +40,8 @@
       companyName: "DefaultCompany",
       productName: "MVPPlatformer3D",
       productVersion: "0.1.0",
-      matchWebGLToCanvasSize: true
+      matchWebGLToCanvasSize: true,
+      devicePixelRatio: pixelRatio
     });
   </script>
 </body>
